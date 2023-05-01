@@ -2,30 +2,48 @@
 #include "ThePacmanGame.h"
 void Pacman::setPosition(int y, int x)
 {
-	//for (int i = 0; i < SIZE; i++)
-		body.set(x, y);
+	body.set(x, y);
+	if (!isInited) {
+		initPosition.set(x, y);
+	}
 }
+
+void Pacman::setArrowKeys(const char* keys) {
+	arrowKeys[0] = keys[0]; // up
+	arrowKeys[1] = keys[1]; // down
+	arrowKeys[2] = keys[2]; // left
+	arrowKeys[3] = keys[3]; // right 
+	arrowKeys[4] = keys[4]; // stay
+}
+
 void Pacman::move()
 {
-	if (direction == 4)
+	if (direction == STAY) {
+		body.draw(PACMAN_CHAR, color);
 		return;
-		body.draw(' ');
-		//for (int i = SIZE - 1; i > 0; --i)
-			//body[i] = body[i - 1];
+	}
 
-		if (theGame->isWall(body.next(direction)))
-			direction = 4;
+	body.draw(' ');
 
-		body.move(direction);
-		setTextColor(color);
-		body.draw('@');
+	if (theGame->isWall(body.next(direction)))
+		direction = 4;
+
+	body.move(direction);
+	body.draw(PACMAN_CHAR, color);
 }
 int Pacman::getDirection(char key)
 {
-	for (int i = 0; i < SIZE - 1; i++)
+	if (key < 'a') key += 32; // upper to lower 
+	for (int i = 0; i < POSSIBLE_DIRECTIONS_NUMBER; i++)
 	{
 		if (key == arrowKeys[i])
 			return i;
 	}
 	return -1;
+}
+
+void Pacman::resetPosition() {
+	direction = STAY;
+	body.set(initPosition.getX(), initPosition.getY());
+	body.draw(PACMAN_CHAR, color);
 }

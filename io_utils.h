@@ -10,6 +10,9 @@
 
 void gotoxy(int x, int y);
 void setTextColor(Color);
+void setTextColor(int);
+short GetColor();
+void resetColor(short shortColorToSet);
 void hideCursor();
 void clear_screen();
 

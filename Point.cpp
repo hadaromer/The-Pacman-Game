@@ -1,35 +1,51 @@
 #include "Point.h"
 
 void Point::move() {
-	int dir = rand() % 4;
+	int dir = rand() % 4; 
 	move(dir);
 }
 
 void Point::move(int dir) {
 	switch (dir) {
-	case 0: // UP
+	case UP:
 		--y;
 		if (y < 0) {
-			y = 24;
+			if (canCrossWalls)
+				y = 23;
+			else
+				y = 0;
 		}
 		break;
-	case 1: // DOWN
+	case DOWN: 
 		++y;
-		if (y > 24) {
-			y = 1;
+		if (y > 23) {
+			if (canCrossWalls)
+				y = 0;
+			else
+				y = 23;
 		}
 		break;
-	case 2: // LEFT
+	case LEFT:
 		--x;
 		if (x < 0) {
-			x = 79;
+			if (canCrossWalls)
+				x = 79;
+			else
+				x = 0;
 		}
 		break;
-	case 3: // RIGHT
+	case RIGHT: 
 		++x;
 		if (x > 79) {
-			x = 1;
+			if (canCrossWalls)
+				x = 0;
+			else
+				x = 79;
 		}
 		break;
 	}
+}
+
+bool Point::isEqual(const Point& p) {
+	return y == p.getY() && x == p.getX();
 }

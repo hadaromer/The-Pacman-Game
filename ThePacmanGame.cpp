@@ -2,11 +2,15 @@
 
 void ThePacmanGame::handleObjectCreationFromBoard(int row, int col)
 {
-	char ch = board[row][col];
-	if (ch == '@')
-		s.setPosition(row, col);
-	//if (ch == '#')
-		//s[1].setPosition(row, col);
+	char ch = originalBoard[row][col];
+	if (ch == PACMAN_CHAR)
+		pacman.setPosition(row, col);
+	if (ch == GHOST_CHAR)
+		ghostManager.addGhost(row, col);
+	if (ch == POINTS_POSITION)
+		legendManager.setPointsPos(row, col);
+	if (ch == LIFE_POSITION)
+		legendManager.setLivesPos(row, col);
 }
 void ThePacmanGame::setBoard(const char* boardToCopy[ROWS])
 {
@@ -21,52 +25,68 @@ void ThePacmanGame::setBoard(const char* boardToCopy[ROWS])
 }
 void ThePacmanGame::init()
 {
+	gameState = RUN;
+	points = 0;
+	life = 3;
+	remainingBreadcrumbs = 0;
+	pacman.setGame(this);
+	pacman.setArrowKeys(ARROW_KEYS);
+	ghostManager.setGame(this);
 	for (int i = 0; i < ROWS; i++)
 	{
 		for (int j = 0; j < COLS; j++)
 		{
 			gotoxy(j, i);
-			if (originalBoard[i][j] == ' ') { // breadcrumb location
-				board[i][j] = '-';
+			if (originalBoard[i][j] == BLANK && i < END_BOARD_ROWS) { // breadcrumb location
+				board[i][j] = BREADCRUMB_SYMBOL;
+				remainingBreadcrumbs++;
 			}
-			else {
+			else if (originalBoard[i][j] == WALL_CHAR) {
 				board[i][j] = originalBoard[i][j];
 			}
-			cout << board[i][j];
-			cout.flush();
+			else if (i == END_BOARD_ROWS) {
+				board[i][j] = originalBoard[i][j];
+			}
+			else {
+				board[i][j] = BLANK;
+			}
 			handleObjectCreationFromBoard(i, j);
 		}
 		board[i][COLS] = '\0';
 	}
-
-	s.setGame(this);
-	//s[1].setGame(this);
-	s.setColor(YELLOW);
-	//s[1].setColor(LIGHTBLUE);
-	s.setArrowKeys("wsad");
-	//s[1].setArrowKeys("8246");
+	PrintBoard(true);
+	legendManager.PrintLife(life);
+	legendManager.PrintPoints(points);
 }
 
-int ThePacmanGame::UpdateBoard(const Point& p) {
-	if (isWall(p)) {
-		return WALL;
+void ThePacmanGame::PauseGame()
+{
+	ShowGamePaused();
+	PrintBoard(false);
+}
+
+void ThePacmanGame::UpdateBoardBreadcrumbs() {
+	Point p = pacman.getBody();
+	if (isPoint(p)) {
+		points++;
+		remainingBreadcrumbs--;
+		board[p.getY()][p.getX()] = BLANK;
 	}
-	if (isGhost(p)) {
-		return GHOST;
-	}
-	return NORMAL;
 }
 
 bool ThePacmanGame::isWall(const Point& p) {
-	return board[p.getY()][p.getX()] == '+';
-}
-
-bool ThePacmanGame::isGhost(const Point& p) {
-	return board[p.getY()][p.getX()] == '$';
+	return board[p.getY()][p.getX()] == WALL_CHAR;
 }
 
 bool ThePacmanGame::isPoint(const Point& p) {
-	return board[p.getY()][p.getX()] == '-';
+	return board[p.getY()][p.getX()] == BREADCRUMB_SYMBOL;
+}
+
+char ThePacmanGame::getCharAtPosition(const Point& p) {
+	if (isPoint(p)) {
+		return BREADCRUMB_SYMBOL;
+	}
+	return BLANK;
 }
 
 void ThePacmanGame::run()
@@ -78,13 +98,71 @@ void ThePacmanGame::run()
 		if (_kbhit())
 		{
 			key = _getch();
-			if ((dir = s.getDirection(key)) != -1)
-				s.setDirection(dir);
-			//else if ((dir = s[1].getDirection(key)) != -1)
-				//s[1].setDirection(dir);
+			if ((dir = pacman.getDirection(key)) != -1)
+				pacman.setDirection(dir);
+			if (key == ESC)
+				PauseGame();
 		}
-		s.move();
-		//s[1].move();
+
+		pacman.move();
+		if (ghostManager.isGhostEatPacman(pacman.getBody())) {
+			LoseLife();
+			Sleep(1000);
+			if (life == 0) { // no more life, pacman loses :(
+				gameState = LOSE;
+			}
+		}
+		ghostManager.MoveGhosts();
+		legendManager.PrintPoints(points);
+		UpdateBoardBreadcrumbs();
+
+		if (remainingBreadcrumbs == 0) { // pacman wins :)
+			gameState = WIN;
+		}
+
 		Sleep(100);
-	} while (key != ESC);
+	} while (gameState == RUN);
+	HandleGameEnded();
+}
+
+void ThePacmanGame::LoseLife() {
+	life--;
+	PrintBoard(true);
+	legendManager.BlinkLives(life);
+}
+
+void ThePacmanGame::PrintBoard(bool resetPlaces) { // resetPlaces for reset creatures (e.g: pacman died)
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLS; j++)
+		{
+			gotoxy(j, i);
+			if (board[i][j] == WALL_CHAR && COLORFUL)
+				setTextColor(BLUE);
+			cout << board[i][j];
+			cout.flush();
+			if (board[i][j] == WALL_CHAR && COLORFUL)
+				setTextColor(WHITE);
+		}
+	}
+	if (resetPlaces) {
+		pacman.resetPosition();
+		ghostManager.resetPosition();
+	}
+	legendManager.PrintLife(life);
+	legendManager.PrintPoints(points);
+}
+
+void ThePacmanGame::HandleGameEnded() {
+	pacman.reset();
+	ghostManager.reset();
+	switch (gameState)
+	{
+	case LOSE:
+		ShowGameOver();
+		break;
+	case WIN:
+		ShowGameWin();
+		break;
+	}
 }
