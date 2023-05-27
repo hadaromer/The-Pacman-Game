@@ -18,66 +18,75 @@
     <ClInclude Include="ThePacmanGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="_board.h">
+    <ClInclude Include="Boards\_board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Color.h">
+    <ClInclude Include="Utils\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="config.h">
+    <ClInclude Include="Utils\io_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="io_utils.h">
+    <ClInclude Include="Utils\Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Point.h">
+    <ClInclude Include="Creatures\Pacman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pacman.h">
+    <ClInclude Include="Creatures\Ghost.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ghost.h">
+    <ClInclude Include="Creatures\GhostManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GhostManager.h">
+    <ClInclude Include="Utils\LegendManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LegendManager.h">
+    <ClInclude Include="Utils\globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="globals.h">
+    <ClInclude Include="Utils\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="Boards\BoardManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Boards\Board.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="io_utils.cpp">
+    <ClCompile Include="Utils\io_utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Point.cpp">
+    <ClCompile Include="Utils\Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pacman.cpp">
+    <ClCompile Include="Creatures\Pacman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ThePacmanGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ghost.cpp">
+    <ClCompile Include="Creatures\Ghost.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GhostManager.cpp">
+    <ClCompile Include="Creatures\GhostManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LegendManager.cpp">
+    <ClCompile Include="Utils\LegendManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
+    <ClCompile Include="Utils\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boards\BoardManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boards\Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,16 +1,19 @@
 #include "Menu.h"
-#include "_board.h"
+#include "../Boards/_board.h"
+#include "../Boards/Board.h"
 
 ThePacmanGame game;
 short CONSOLE_DEFAULT;
 
 void Start() {
 	CONSOLE_DEFAULT = GetColor();
+	srand(time(NULL)); // set random
 	ShowMenu();
 }
 
 void ShowMenu() {
 	hideCursor();
+	
 	setTextColor(YELLOW);
 	cout << R"(
   __  __ _____  _      ____   _    ____ __  __    _    _   _ 
@@ -55,17 +58,17 @@ void HandleUserChoice(int userChoice) {
 	switch (userChoice)
 	{
 	case START:
-		system("CLS");
+		clear_screen();
 		game.setBoard(board_example);
 		game.init();
 		game.run();
 		break;
-	case COLORCHANGE:
+	case COLOR_CHANGE:
 		COLORFUL = !COLORFUL;
 		if (!COLORFUL) {
 			resetColor(CONSOLE_DEFAULT);
 		}
-		system("CLS");
+		clear_screen();
 		ShowMenu();
 		break;
 	case INSTRUCTIONS:
@@ -80,13 +83,14 @@ void HandleUserChoice(int userChoice) {
 }
 
 void PrintInstructions() {
-	system("CLS");
+	clear_screen();
 	cout << R"(
 Instructions Pacman
-Goal
+
+##Goal##
 Guide Pacman around the maze and eat all the little white dots whilst avoiding those nasty ghosts.
 
-Controls
+##Controls##
 LEFT  | a or A
 RIGHT | d or D
 UP    | w or W
@@ -101,7 +105,7 @@ Press any key to return to menu.
 }
 
 void ShowGameOver() {
-	system("CLS");
+	clear_screen();
 	cout << R"(
 
    _____              __  __   ______ 
@@ -126,7 +130,7 @@ void ShowGameOver() {
 }
 
 void ShowGameWin() {
-	system("CLS");
+	clear_screen();
 	cout << R"(
 
  __      __  _____    _____   _______    ____    _____   __     __
@@ -143,7 +147,7 @@ void ShowGameWin() {
 }
 
 void ShowGamePaused() {
-	system("CLS");
+	clear_screen();
 	cout << R"(
 
 
@@ -171,7 +175,7 @@ void WaitForKey(WaitingKeysOptions option, void(*func)()) {
 		key = _getch();
 
 	} while ((option == ESC && key != ESC) || (option == ANY && key == 0));
-	system("CLS");
+	clear_screen();
 	if (func != NULL)
 		func();
 }

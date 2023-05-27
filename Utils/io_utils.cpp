@@ -4,16 +4,6 @@
 
 using namespace std;
 
-#ifndef WINDOWS
-void gotoxy(int x, int y) {}
-int _getch(void) { return 0; }
-int _kbhit(void) { return 0; }
-void Sleep(unsigned long) {}
-void setTextColor(Color color) {}
-void setTextColor(int color) {}
-void hideCursor() {}
-void clear_screen() {}
-#else
 void gotoxy(int x, int y)
 {
 	HANDLE hConsoleOutput;
@@ -58,7 +48,3 @@ void clear_screen()
 {
 	system("cls");
 }
-
-#endif
-
-

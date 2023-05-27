@@ -24,6 +24,7 @@
     <ProjectGuid>{12a10c41-27fc-4ba9-b5d2-cc227e52dd37}</ProjectGuid>
     <RootNamespace>Project1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>The Pacman Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,28 +128,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="config.h" />
-    <ClInclude Include="Ghost.h" />
-    <ClInclude Include="GhostManager.h" />
-    <ClInclude Include="globals.h" />
-    <ClInclude Include="io_utils.h" />
-    <ClInclude Include="LegendManager.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Point.h" />
-    <ClInclude Include="Pacman.h" />
+    <ClInclude Include="Boards\BoardManager.h" />
+    <ClInclude Include="Boards\Board.h" />
+    <ClInclude Include="Utils\Color.h" />
+    <ClInclude Include="Creatures\Ghost.h" />
+    <ClInclude Include="Creatures\GhostManager.h" />
+    <ClInclude Include="Utils\globals.h" />
+    <ClInclude Include="Utils\io_utils.h" />
+    <ClInclude Include="Utils\LegendManager.h" />
+    <ClInclude Include="Utils\Menu.h" />
+    <ClInclude Include="Utils\Point.h" />
+    <ClInclude Include="Creatures\Pacman.h" />
     <ClInclude Include="ThePacmanGame.h" />
-    <ClInclude Include="_board.h" />
+    <ClInclude Include="Boards\_board.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ghost.cpp" />
-    <ClCompile Include="GhostManager.cpp" />
-    <ClCompile Include="io_utils.cpp" />
-    <ClCompile Include="LegendManager.cpp" />
+    <ClCompile Include="Boards\BoardManager.cpp" />
+    <ClCompile Include="Boards\Board.cpp" />
+    <ClCompile Include="Creatures\Ghost.cpp" />
+    <ClCompile Include="Creatures\GhostManager.cpp" />
+    <ClCompile Include="Utils\io_utils.cpp" />
+    <ClCompile Include="Utils\LegendManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Point.cpp" />
-    <ClCompile Include="Pacman.cpp" />
+    <ClCompile Include="Utils\Menu.cpp" />
+    <ClCompile Include="Utils\Point.cpp" />
+    <ClCompile Include="Creatures\Pacman.cpp" />
     <ClCompile Include="ThePacmanGame.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

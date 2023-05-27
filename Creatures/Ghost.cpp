@@ -1,5 +1,5 @@
 #include "Ghost.h"
-#include "ThePacmanGame.h"
+#include "../ThePacmanGame.h"
 
 void Ghost::setPosition(int y, int x)
 {

@@ -1,5 +1,5 @@
 #include "Pacman.h"
-#include "ThePacmanGame.h"
+#include "../ThePacmanGame.h"
 void Pacman::setPosition(int y, int x)
 {
 	body.set(x, y);

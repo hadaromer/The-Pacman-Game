@@ -1,11 +1,11 @@
 #ifndef _THESNAKESGAME_H_
 #define _THESNAKESGAME_H_
 
-#include "io_utils.h"
-#include "Pacman.h"
-#include "GhostManager.h"
-#include "LegendManager.h"
-#include "Menu.h"
+#include "Utils/io_utils.h"
+#include "Creatures/Pacman.h"
+#include "Creatures/GhostManager.h"
+#include "Utils/LegendManager.h"
+#include "Utils/Menu.h"
 
 enum { ROWS = 25, COLS = 80, END_BOARD_ROWS = 24};
 const char ARROW_KEYS[] = "wxads";

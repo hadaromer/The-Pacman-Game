@@ -2,12 +2,11 @@
 #define _MENU_H_
 
 #include "io_utils.h"
-#include "ThePacmanGame.h"
+#include "../ThePacmanGame.h"
 
 using namespace std;
-
-enum MenuOption {START=1, COLORCHANGE =2,INSTRUCTIONS=8,EXIT=9};
-enum WaitingKeysOptions{ESC=27,ANY=0};
+enum MenuOption { START = 1, COLOR_CHANGE = 2, INSTRUCTIONS = 8, EXIT = 9 };
+enum WaitingKeysOptions { ESC = 27, ANY = 0 };
 void Start();
 void ShowMenu();
 void GetUserInput();

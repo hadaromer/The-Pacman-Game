@@ -2,7 +2,7 @@
 #define _GHOST_H_
 
 #include <cstring>
-#include "Point.h"
+#include "../Utils/Point.h"
 
 class ThePacmanGame;
 

@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-#include "Menu.h"
+#include "Utils/Menu.h"
 
 int main() {
 	Start();
