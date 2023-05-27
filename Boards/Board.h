@@ -9,6 +9,7 @@ public:
 	// Board(char * name) : name(name)
 	// setBoard(file)
 	// getName()
+	// try
 };
 
 #endif
